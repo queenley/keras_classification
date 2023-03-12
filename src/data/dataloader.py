@@ -69,6 +69,8 @@ class DataLoader:
         img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
         img = np.array(img, dtype="float32") * 1.0
         img = self.transform(image=img)
+        print(img)
+        quit()
         img -= 127.5
         img /= 128.
         return img

@@ -48,7 +48,7 @@ class Trainer:
 
     def __call__(self, *args, **kwargs):
         self._build_model()
-        # self.model.summary()
+        self.model.summary()
         keras.utils.plot_model(self.model, show_shapes=True)
         self._train_model(self.train_learning_rate, self.train_epochs)
         self.model.trainable = True
