@@ -69,8 +69,7 @@ class Trainer:
         x = tf.keras.layers.Dense(self.num_classes)(x)
         outputs = tf.keras.layers.Activation('softmax')(x)
         self.model = tf.keras.Model(base_model.input, outputs)
-        self.model.layers[0].name = "images"
-        
+
     def _train_model(self, learning_rate, num_epochs) -> None:
         """
         Compile and Fit model

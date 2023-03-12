@@ -41,19 +41,19 @@ class DataLoader:
         """
         Load raw dataset
         """
-        self.train_dataset['images'] = []
+        self.train_dataset['input_1'] = []
         self.train_dataset['labels'] = []
-        self.test_dataset['images'] = []
+        self.test_dataset['input_1'] = []
         self.test_dataset['labels'] = []
 
         for idx, class_path in enumerate(glob(f"{self.data_path}/*")):
             name_class = class_path.split("/")[-1]
             self.label2id[name_class] = idx
 
-            images_path = glob(f"{class_path}/*")
-            train, test, _, _ = train_test_split(images_path, images_path, test_size=0.2, random_state=42)
-            self.train_dataset['images'] += train
-            self.test_dataset['images'] += test
+            input_1_path = glob(f"{class_path}/*")
+            train, test, _, _ = train_test_split(input_1_path, input_1_path, test_size=0.2, random_state=42)
+            self.train_dataset['input_1'] += train
+            self.test_dataset['input_1'] += test
 
             self.train_dataset['labels'] += [idx] * len(train)
             self.test_dataset['labels'] += [idx] * len(test)
@@ -79,9 +79,9 @@ class DataLoader:
         :param input_data: dictionary of input dataset includes image_path and label
         :return: updated dictionary of input dataset includes preprocessing image and label
         """
-        img_path = input_data["images"]
+        img_path = input_data["input_1"]
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
-        input_data["images"] = img
+        input_data["input_1"] = img
         return input_data
 
     def load_dataset(self) -> Tuple[Any, Any]:
@@ -98,8 +98,8 @@ class DataLoader:
         train_dataset, test_dataset = train_dataset.repeat(), test_dataset.repeat()
 
         # Shuffle dataset, "I guess the value for buffer_size is about 1/2 of dataset for better shuffle"
-        train_dataset = train_dataset.shuffle(buffer_size=len(self.train_dataset['images']) // 2)
-        test_dataset = test_dataset.shuffle(buffer_size=len(self.test_dataset['images']) // 2)
+        train_dataset = train_dataset.shuffle(buffer_size=len(self.train_dataset['input_1']) // 2)
+        test_dataset = test_dataset.shuffle(buffer_size=len(self.test_dataset['input_1']) // 2)
 
         # Prefetch dataset for faster training
         train_dataset = train_dataset.prefetch(tf.data.AUTOTUNE)
