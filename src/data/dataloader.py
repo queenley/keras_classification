@@ -59,6 +59,11 @@ class DataLoader:
             self.train_dataset['labels'] += [idx] * len(train)
             self.test_dataset['labels'] += [idx] * len(test)
 
+        self.train_dataset['labels'] = keras.utils.to_categorical(self.train_dataset['labels'],
+                                                                  num_classes=len(self.label2id))
+        self.test_dataset['labels'] = keras.utils.to_categorical(self.train_dataset['labels'],
+                                                                 num_classes=len(self.label2id))
+
         # self.label2id = dict(sorted(self.label2id.items(), key=lambda item: item[1]))
 
     def _image_pil_preprocessing(self, img_path):
@@ -84,8 +89,6 @@ class DataLoader:
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["input_1"] = img
 
-        onehot_label = keras.utils.to_categorical(input_data['labels'],
-                                                  num_classes=len(self.label2id))
         return input_data["input_1"], onehot_label
 
     def load_dataset(self) -> Tuple[Any, Any]:
