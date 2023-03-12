@@ -83,7 +83,7 @@ class DataLoader:
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["input_1"] = img
 
-        print(len(input_data['labels']))
+        print(input_data['labels'].shape)
         return input_data["input_1"], input_data['labels']
 
     def load_dataset(self) -> Tuple[Any, Any]:
