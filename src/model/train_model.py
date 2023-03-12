@@ -28,6 +28,7 @@ class Trainer:
 
         self.model = None
         self.tflite_model = None
+        self.history = None
 
         self.METRICS = ['categorical_accuracy',
                         keras.metrics.Precision(name="precision"),
@@ -82,10 +83,10 @@ class Trainer:
             metrics=self.METRICS
         )
 
-        self.model.fit(self.train_generator,
-                       validation_data=self.test_generator,
-                       epochs=num_epochs,
-                       callbacks=[self.early_callback, self.model_checkpoint_callback])
+        self.history = self.model.fit(self.train_generator,
+                                      validation_data=self.test_generator,
+                                      epochs=num_epochs,
+                                      callbacks=[self.early_callback, self.model_checkpoint_callback])
 
     def evaluate(self) -> Tuple[float, float]:
         """
