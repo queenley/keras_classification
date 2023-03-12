@@ -23,6 +23,8 @@ def make_parser():
     parser.add_argument("--train_epochs", default=5, type=int, help="the number epochs to train")
     parser.add_argument("--tune_epochs", default=5, type=int, help="the number epochs to tune")
 
+    parser.add_argument("--convert2tflite", action="store_true", help="the model is to convert tflite model")
+
     parser.add_argument("--predict_data", type=str, help="the predict data path")
     parser.add_argument("--predict", action="store_true", help="the mode is to predict result")
 
@@ -80,3 +82,8 @@ if __name__ == "__main__":
                           list_true_label=list_true_label,
                           list_pd_img=list_pred_img,
                           class_names=list(label2id.keys()))
+
+    # convert to tflite model
+    if args.convert2tflite:
+        trainer.convert_to_tflite()
+        trainer.check_tflite_model()
