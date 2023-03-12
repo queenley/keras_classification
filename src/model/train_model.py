@@ -80,7 +80,7 @@ class Trainer:
         """
         self.model.compile(
             optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
-            loss='categorical_crossentropy',
+            loss='sparse_categorical_crossentropy',
             metrics=self.METRICS
         )
 
