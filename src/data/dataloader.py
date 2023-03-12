@@ -80,6 +80,8 @@ class DataLoader:
         :return: updated dictionary of input dataset includes preprocessing image and label
         """
         img_path = input_data["images"]
+        print(type(img_path))
+        print(img_path)
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["images"] = img
         return input_data
@@ -94,6 +96,8 @@ class DataLoader:
         # Infinity dataset
         train_dataset = tf.data.Dataset.from_tensor_slices(self.train_dataset)
         test_dataset = tf.data.Dataset.from_tensor_slices(self.test_dataset)
+
+        train_dataset, test_dataset = train_dataset.repeat(), test_dataset.repeat()
 
         # Shuffle dataset, "I guess the value for buffer_size is about 1/2 of dataset for better shuffle"
         train_dataset = train_dataset.shuffle(buffer_size=len(self.train_dataset['images']) // 2)
