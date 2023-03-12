@@ -30,7 +30,7 @@ class DataLoader:
                 A.Blur(blur_limit=3, p=0.3),
                 A.MedianBlur(blur_limit=3, p=0.3),
             ], p=0.3),
-            A.CLAHE(clip_limit=1.5, p=0.3),
+            # A.CLAHE(clip_limit=1.5, p=0.3),
             A.Rotate(limit=(-90, 90), interpolation=1, border_mode=4, value=None, mask_value=None, always_apply=False,
                      p=0.5),
             A.Rotate(limit=(-180, 180), interpolation=1, border_mode=4, value=None, mask_value=None, always_apply=False,
