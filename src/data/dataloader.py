@@ -4,6 +4,7 @@ import numpy as np
 from glob import glob
 import tensorflow as tf
 from PIL import Image
+from typing import Tuple, Any
 
 
 class DataLoader:
@@ -37,6 +38,9 @@ class DataLoader:
         ])
 
     def _split_dataset(self):
+        """
+        Load raw dataset
+        """
         self.train_dataset['images'] = []
         self.train_dataset['labels'] = []
         self.test_dataset['images'] = []
@@ -54,7 +58,14 @@ class DataLoader:
             self.train_dataset['labels'] += [idx] * len(train)
             self.test_dataset['labels'] += [idx] * len(test)
 
+        # self.label2id = dict(sorted(self.label2id.items(), key=lambda item: item[1]))
+
     def _image_pil_preprocessing(self, img_path):
+        """
+        Preprocessing an image
+        :param img_path: the image path to preprocessing
+        :return: image after preprocessing
+        """
         img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
         img = np.array(img, dtype="float32") * 1.0
         img = self.transform(image=img)
@@ -63,13 +74,24 @@ class DataLoader:
         return img
 
     def _image_preprocessing(self, input_data):
+        """
+        Preprocessing all image in the dataset
+        :param input_data: dictionary of input dataset includes image_path and label
+        :return: updated dictionary of input dataset includes preprocessing image and label
+        """
         img_path = input_data["images"]
         img_path = tf.squeeze(img_path, axis=0)
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["images"] = img
         return input_data
 
-    def load_dataset(self):
+    def load_dataset(self) -> Tuple[Any, Any]:
+        """
+        Load raw dataset to tf.data.Dataset
+        :return: the tuple of train_generator, test_generator
+        """
+        # load raw data
+        self._split_dataset()
         # Infinity dataset
         train_dataset = tf.data.Dataset.from_tensor_slices(self.train_dataset)
         test_dataset = tf.data.Dataset.from_tensor_slices(self.test_dataset)
