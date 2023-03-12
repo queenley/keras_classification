@@ -66,6 +66,7 @@ class DataLoader:
         :param img_path: the image path to preprocessing
         :return: image after preprocessing
         """
+        print(img_path)
         img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
         img = np.array(img, dtype="float32") * 1.0
         img = self.transform(image=img)
@@ -80,8 +81,6 @@ class DataLoader:
         :return: updated dictionary of input dataset includes preprocessing image and label
         """
         img_path = input_data["images"]
-        print(type(img_path))
-        print(img_path)
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["images"] = img
         return input_data
