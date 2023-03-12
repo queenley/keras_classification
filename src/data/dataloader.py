@@ -68,7 +68,7 @@ class DataLoader:
         """
         pil_img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
         np_img = np.asarray(pil_img, dtype="float32") * 1.0
-        np_img = self.transform(image=np_img)
+        np_img = self.transform(image=np_img)['image']
         np_img -= 127.5
         np_img /= 128.
         return np_img
