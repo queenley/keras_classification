@@ -3,7 +3,6 @@ from tensorflow import keras
 import numpy as np
 from typing import Tuple
 from datetime import datetime
-import cv2
 
 
 class Trainer:
