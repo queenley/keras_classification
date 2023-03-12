@@ -51,7 +51,6 @@ if __name__ == "__main__":
                       test_generator=test_generator,
                       train_epochs=args.train_epochs,
                       tune_epochs=args.tune_epochs)
-    keras.utils.plot_model(trainer.model, show_shapes=True)
     print("\n Training" + "." * 10)
     trainer.__call__()
 
