@@ -67,9 +67,9 @@ class DataLoader:
         :return: image after preprocessing
         """
         img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
+        img = np.array(img, dtype="float32") * 1.0
         img -= 127.5
         print(img)
-        img = np.array(img, dtype="float32") * 1.0
         img = self.transform(image=img)
         img -= 127.5
         img /= 128.
