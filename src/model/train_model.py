@@ -34,7 +34,8 @@ class Trainer:
                         keras.metrics.Precision(name="precision"),
                         keras.metrics.Recall(name="recall"),
                         ]
-        self.early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_categorical_accuracy', patience=2)
+        self.early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_categorical_accuracy',
+                                                               patience=2)
 
         self.model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
             filepath=self.ckpt_path,
