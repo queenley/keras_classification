@@ -80,7 +80,6 @@ class DataLoader:
         :return: updated dictionary of input dataset includes preprocessing image and label
         """
         img_path = input_data["images"]
-        img_path = tf.squeeze(img_path, axis=0)
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["images"] = img
         return input_data
