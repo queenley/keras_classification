@@ -47,17 +47,19 @@ class DataLoader:
         self.test_dataset['input_1'] = []
         self.test_dataset['labels'] = []
 
+        num_class = len(glob(f"{self.data_path}/*"))
         for idx, class_path in enumerate(glob(f"{self.data_path}/*")):
             name_class = class_path.split("/")[-1]
             self.label2id[name_class] = idx
 
-            input_1_path = glob(f"{class_path}/*")
-            train, test, _, _ = train_test_split(input_1_path, input_1_path, test_size=0.2, random_state=42)
+            input_path = glob(f"{class_path}/*")
+            train, test, _, _ = train_test_split(input_path, input_path, test_size=0.2, random_state=42)
             self.train_dataset['input_1'] += train
             self.test_dataset['input_1'] += test
 
-            self.train_dataset['labels'] += [idx] * len(train)
-            self.test_dataset['labels'] += [idx] * len(test)
+            one_hot_label = np.eye(num_class, dtype=np.int32)[idx].tolist()
+            self.train_dataset['labels'] += [one_hot_label] * len(train)
+            self.test_dataset['labels'] += [one_hot_label] * len(test)
 
         # self.label2id = dict(sorted(self.label2id.items(), key=lambda item: item[1]))
 
