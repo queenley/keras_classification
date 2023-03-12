@@ -66,14 +66,12 @@ class DataLoader:
         :param img_path: the image path to preprocessing
         :return: image after preprocessing
         """
-        img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
-        img = np.array(img, dtype="float32") * 1.0
-        img -= 127.5
-        print(img)
-        img = self.transform(image=img)
-        img -= 127.5
-        img /= 128.
-        return img
+        pil_img = Image.open(img_path.decode("utf-8")).resize(self.img_size).convert("RGB")
+        np_img = np.asarray(pil_img, dtype="float32") * 1.0
+        np_img = self.transform(image=np_img)
+        np_img -= 127.5
+        np_img /= 128.
+        return np_img
 
     def _image_preprocessing(self, input_data):
         """
