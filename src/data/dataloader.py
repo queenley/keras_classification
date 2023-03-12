@@ -92,10 +92,8 @@ class DataLoader:
         # load raw data
         self._split_dataset()
         # Infinity dataset
-        train_dataset = tf.data.Dataset.from_tensor_slices((self.train_dataset['input_1'],
-                                                            self.train_dataset['labels']))
-        test_dataset = tf.data.Dataset.from_tensor_slices((self.test_dataset['input_1'],
-                                                           self.test_dataset['labels']))
+        train_dataset = tf.data.Dataset.from_tensor_slices(self.train_dataset)
+        test_dataset = tf.data.Dataset.from_tensor_slices(self.test_dataset)
 
         train_dataset, test_dataset = train_dataset.repeat(), test_dataset.repeat()
 
