@@ -1,3 +1,4 @@
+import keras.utils
 from sklearn.model_selection import train_test_split
 import albumentations as A
 import numpy as np
@@ -83,8 +84,9 @@ class DataLoader:
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["input_1"] = img
 
-        print(input_data['labels'].shape)
-        return input_data["input_1"], input_data['labels']
+        onehot_label = keras.utils.to_categorical(input_data['labels'],
+                                                  num_classes=len(self.label2id))
+        return input_data["input_1"], onehot_label
 
     def load_dataset(self) -> Tuple[Any, Any]:
         """
