@@ -1,5 +1,4 @@
 import argparse
-from tensorflow import keras
 import os
 from glob import glob
 import cv2
@@ -42,15 +41,17 @@ if __name__ == "__main__":
     label2id = dataloader.label2id
 
     # training
+    num_cls = len(label2id)
     trainer = Trainer(img_size=args.img_size,
-                      num_classes=len(label2id),
+                      num_classes=num_cls,
                       ckpt_path=args.ckpt_path,
                       train_learning_rate=args.train_learning_rate,
                       tune_learning_rate=args.tune_learning_rate,
                       train_generator=train_generator,
                       test_generator=test_generator,
                       train_epochs=args.train_epochs,
-                      tune_epochs=args.tune_epochs)
+                      tune_epochs=args.tune_epochs,
+                      steps_per_epoch=num_cls//args.batch_size)
     print("\n Training" + "." * 10)
     trainer.__call__()
 

@@ -15,7 +15,8 @@ class Trainer:
                  train_generator,
                  test_generator,
                  train_epochs,
-                 tune_epochs):
+                 tune_epochs,
+                 steps_per_epoch):
         self.img_size = img_size
         self.num_classes = num_classes
         self.ckpt_path = ckpt_path
@@ -25,6 +26,7 @@ class Trainer:
         self.test_generator = test_generator
         self.train_epochs = train_epochs
         self.tune_epochs = tune_epochs
+        self.steps_per_epoch = steps_per_epoch
 
         self.model = None
         self.tflite_model = None
@@ -87,7 +89,8 @@ class Trainer:
         self.history = self.model.fit(self.train_generator,
                                       validation_data=self.test_generator,
                                       epochs=num_epochs,
-                                      callbacks=[self.early_callback, self.model_checkpoint_callback])
+                                      callbacks=[self.early_callback, self.model_checkpoint_callback],
+                                      steps_per_epoch=self.steps_per_epoch)
 
     def evaluate(self) -> Tuple[float, float]:
         """
