@@ -93,7 +93,6 @@ class Trainer:
                                       epochs=num_epochs,
                                       callbacks=[self.early_callback, self.model_checkpoint_callback],
                                       steps_per_epoch=self.steps_per_epoch,
-                                      verbose=2,
                                       validation_steps=self.validation_steps,
                                       )
 
