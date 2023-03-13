@@ -41,7 +41,6 @@ if __name__ == "__main__":
     label2id = dataloader.label2id
 
     # training
-    num_sample = len(glob(f"{args.data_path}/*/*"))
     trainer = Trainer(img_size=args.img_size,
                       num_classes=len(label2id),
                       ckpt_path=args.ckpt_path,
@@ -51,7 +50,8 @@ if __name__ == "__main__":
                       test_generator=test_generator,
                       train_epochs=args.train_epochs,
                       tune_epochs=args.tune_epochs,
-                      steps_per_epoch=num_sample//args.batch_size)
+                      steps_per_epoch=dataloader.length_train//args.batch_size,
+                      validation_steps=dataloader.length_val//args.batch_size)
     print("\n Training" + "." * 10)
     trainer.__call__()
 

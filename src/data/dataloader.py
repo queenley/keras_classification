@@ -21,6 +21,9 @@ class DataLoader:
         self.test_dataset = dict()
         self.label2id = dict()
 
+        self.length_train = 0
+        self.length_val = 0
+
         self.transform = A.Compose([
             A.HorizontalFlip(p=0.5),
             A.ShiftScaleRotate(shift_limit=0.0185, scale_limit=0.1, rotate_limit=45, p=0.5),
@@ -60,6 +63,9 @@ class DataLoader:
             one_hot_label = np.eye(num_class, dtype=np.int32)[idx].tolist()
             self.train_dataset['labels'] += [one_hot_label] * len(train)
             self.test_dataset['labels'] += [one_hot_label] * len(test)
+
+        self.length_train = len(self.train_dataset)
+        self.length_val = len(self.test_dataset)
 
         # self.label2id = dict(sorted(self.label2id.items(), key=lambda item: item[1]))
 
