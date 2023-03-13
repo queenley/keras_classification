@@ -85,7 +85,8 @@ class Trainer:
         self.model.compile(
             optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
             loss='categorical_crossentropy',
-            metrics=self.METRICS
+            metrics=self.METRICS,
+            run_ergly=True
         )
 
         self.history = self.model.fit(self.train_generator,

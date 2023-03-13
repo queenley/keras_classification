@@ -27,6 +27,8 @@ def make_parser():
     parser.add_argument("--predict_data", type=str, help="the predict data path")
     parser.add_argument("--predict", action="store_true", help="the mode is to predict result")
 
+    parser.add_argument("--predict_only", action="store_true", help="the mode is to predict result only")
+
     return parser
 
 
