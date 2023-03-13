@@ -86,7 +86,6 @@ class Trainer:
             optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
             loss='categorical_crossentropy',
             metrics=self.METRICS,
-            run_ergly=True
         )
 
         self.history = self.model.fit(self.train_generator,
@@ -95,7 +94,8 @@ class Trainer:
                                       callbacks=[self.early_callback, self.model_checkpoint_callback],
                                       steps_per_epoch=self.steps_per_epoch,
                                       verbose=2,
-                                      validation_steps=self.validation_steps)
+                                      # validation_steps=self.validation_steps,
+                                      )
 
     def evaluate(self) -> Tuple[float, float]:
         """
