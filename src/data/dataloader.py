@@ -86,10 +86,7 @@ class DataLoader:
         img = tf.numpy_function(self._image_pil_preprocessing, [img_path], tf.float32)
         input_data["input_1"] = img
 
-        onehot_label = keras.utils.to_categorical(input_data['labels'],
-                                                  num_classes=len(self.label2id))
-
-        return input_data["input_1"], onehot_label
+        return input_data["input_1"], input_data["labels"]
 
     def load_dataset(self) -> Tuple[Any, Any]:
         """
