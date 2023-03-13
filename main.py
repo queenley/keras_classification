@@ -41,7 +41,7 @@ if __name__ == "__main__":
     label2id = dataloader.label2id
 
     # training
-    num_sample = len(glob(f"{args.datapath}/*/*"))
+    num_sample = len(glob(f"{args.data_path}/*/*"))
     trainer = Trainer(img_size=args.img_size,
                       num_classes=len(label2id),
                       ckpt_path=args.ckpt_path,
