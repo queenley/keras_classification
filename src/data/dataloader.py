@@ -64,8 +64,8 @@ class DataLoader:
             self.train_dataset['labels'] += [one_hot_label] * len(train)
             self.test_dataset['labels'] += [one_hot_label] * len(test)
 
-        self.length_train = len(self.train_dataset)
-        self.length_val = len(self.test_dataset)
+        self.length_train = len(self.train_dataset['input_1'])
+        self.length_val = len(self.test_dataset['input_1'])
 
         # self.label2id = dict(sorted(self.label2id.items(), key=lambda item: item[1]))
 
