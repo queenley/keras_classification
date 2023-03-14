@@ -64,9 +64,9 @@ class Trainer:
         """
         Build to classify model base on backbone efficientnetB3
         """
-        base_model = tf.keras.applications.efficientnet.EfficientNetB3(input_shape=(*self.img_size, 3),
-                                                                       include_top=False,
-                                                                       weights="imagenet")
+        base_model = keras.applications.efficientnet_v2.EfficientNetV2B2(input_shape=(*self.img_size, 3),
+                                                                         include_top=False,
+                                                                         weights="imagenet")
         base_model.trainable = False
         x = base_model.output
         x = tf.keras.layers.GlobalMaxPooling2D()(x)
