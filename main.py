@@ -2,6 +2,8 @@ import argparse
 import os
 from glob import glob
 import cv2
+import tensorflow as tf
+tf.config.experimental.set_memory_growth(tf.config.list_physical_devices('GPU')[0], True)
 
 from src.model.train_model import Trainer
 from src.data.dataloader import DataLoader
