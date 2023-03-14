@@ -84,7 +84,7 @@ class Trainer:
         """
         self.model.compile(
             optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
-            loss='categorical_crossentropy',
+            loss=keras.losses.CategoricalCrossentropy(),
             metrics=self.METRICS,
         )
 
