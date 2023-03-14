@@ -3,7 +3,6 @@ import os
 from glob import glob
 import cv2
 import tensorflow as tf
-tf.config.experimental.set_memory_growth(tf.config.list_physical_devices('GPU')[0], True)
 
 from src.model.train_model import Trainer
 from src.data.dataloader import DataLoader
@@ -35,6 +34,11 @@ def make_parser():
 
 
 if __name__ == "__main__":
+    physical_devices = tf.config.experimental.list_physical_devices('GPU')
+    # physical_devices = tf.config.experimental.list_physical_devices('CPU')
+    print("physical_devices-------------", len(physical_devices))
+    tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
     args = make_parser().parse_args()
     # Load data
     print("\n Loading data" + "." * 10)
