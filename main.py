@@ -21,7 +21,7 @@ def make_parser():
     parser.add_argument("--train_learning_rate", default=0.001, type=float, help="the learning rate for training")
     parser.add_argument("--tune_learning_rate", default=1e-5, type=float, help="the learning rate for tuning")
     parser.add_argument("--train_epochs", default=5, type=int, help="the number epochs to train")
-    parser.add_argument("--tune_epochs", default=5, type=int, help="the number epochs to tune")
+    parser.add_argument("--tune_epochs", default=20, type=int, help="the number epochs to tune")
 
     parser.add_argument("--convert2tflite", action="store_true", help="the model is to convert tflite model")
 
