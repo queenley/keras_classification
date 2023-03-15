@@ -54,9 +54,9 @@ class Trainer:
     def __call__(self, *args, **kwargs):
         self._build_model()
         self.model.summary()
-        keras.utils.plot_model(self.model, show_shapes=True)
-        self._train_model(self.train_learning_rate, self.train_epochs)
-
+        # keras.utils.plot_model(self.model, show_shapes=True)
+        # self._train_model(self.train_learning_rate, self.train_epochs)
+        self.model = keras.models.load_model('/content/drive/MyDrive/KNG/cat_noodles/save_ckpt1/keras/EFNB3_15032023_053304')
         print("\n Tuning" + "." * 10)
         self.model.trainable = True
         self._train_model(self.tune_learning_rate, self.tune_epochs)
