@@ -56,7 +56,7 @@ class Trainer:
         self.model.summary()
         # keras.utils.plot_model(self.model, show_shapes=True)
         # self._train_model(self.train_learning_rate, self.train_epochs)
-        self.model = keras.models.load_model('/content/drive/MyDrive/KNG/cat_noodles/save_ckpt1/keras/EFNB3_15032023_110847')
+        self.model = keras.models.load_model('/content/drive/MyDrive/KNG/cat_noodles/save_ckpt1/keras/EFNB3_15032023_123926')
         print("\n Tuning" + "." * 10)
         self.model.trainable = True
         self._train_model(self.tune_learning_rate, self.tune_epochs)
@@ -103,7 +103,7 @@ class Trainer:
         Evaluate model
         :return: the tuple of loss and accuracy
         """
-        test_loss, test_acc = self.model.evaluate(self.test_generator, verbose=2)
+        test_loss, test_acc = self.model.evaluate(self.test_generator, verbose=1)
         return test_loss, test_acc
 
     def _save_ckpt(self) -> None:
