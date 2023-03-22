@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 class DataLoader:
     def __init__(self,
                  data_path,
+                 label2id,
                  batch_size=90,
                  img_size=(256, 256)):
         self.data_path = data_path
@@ -19,7 +20,7 @@ class DataLoader:
 
         self.train_dataset = dict()
         self.test_dataset = dict()
-        self.label2id = dict()
+        self.label2id = label2id
 
         self.length_train = 0
         self.length_val = 0

@@ -8,6 +8,7 @@ from src.model.train_model import Trainer
 from src.data.dataloader import DataLoader
 from src.model.predict_model import predict
 from src.visualization.visualize import Visualize
+from src.config import config
 
 
 def make_parser():
@@ -42,12 +43,13 @@ if __name__ == "__main__":
 
     args = make_parser().parse_args()
     # Load data
+    label2id = config.label2id
     print("\n Loading data" + "." * 10)
     dataloader = DataLoader(data_path=args.data_path,
+                            label2id=label2id,
                             batch_size=args.batch_size,
                             img_size=args.img_size)
     train_generator, test_generator = dataloader.load_dataset()
-    label2id = dataloader.label2id
 
     # training
     trainer = Trainer(img_size=args.img_size,
