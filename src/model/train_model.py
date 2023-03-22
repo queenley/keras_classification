@@ -21,6 +21,7 @@ class Trainer:
                  validation_steps):
         self.img_size = img_size
         self.num_classes = num_classes
+        print(self.num_classes)
         self.pretrained = pretrained
         self.ckpt_path = ckpt_path
         self.train_learning_rate = train_learning_rate
@@ -56,10 +57,12 @@ class Trainer:
     def __call__(self, *args, **kwargs):
         self._build_model()
         self.model.summary()
-        keras.utils.plot_model(self.model, show_shapes=True)
-        self._train_model(self.train_learning_rate, self.train_epochs)
+        #keras.utils.plot_model(self.model, show_shapes=True)
+        if self.pretrained is None:
+		self._train_model(self.train_learning_rate, self.train_epochs)
 
-        if self.pretrained:
+        if self.pretrained is not None: 
+	    print(f"\n Loading pretrained model from {self.pretrained}" + "." * 10)
             try:
                 self.model.load_weights(self.pretrained)
             except:
@@ -111,8 +114,8 @@ class Trainer:
         Evaluate model
         :return: the tuple of loss and accuracy
         """
-        test_loss, test_acc = self.model.evaluate(self.test_generator, steps=self.validation_steps)
-        return test_loss, test_acc
+        self.model.evaluate(self.test_generator, steps=self.validation_steps)
+      
 
     def _save_ckpt(self) -> None:
         """

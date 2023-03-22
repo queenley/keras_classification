@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     # evaluate
     print("\n Evaluating" + "." * 10)
-    test_loss, test_acc = trainer.evaluate()
+    trainer.evaluate()
     print("\n Test loss: ", test_loss)
     print("\n Test accuracy: ", test_acc)
 
