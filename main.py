@@ -17,6 +17,7 @@ def make_parser():
 
     parser.add_argument("--batch_size", default=90, type=int, help="batch size")
     parser.add_argument("--img_size", default=(256, 256), help="the image size")
+    parser.add_argument("--pretrained", default=None, type=str, help="the path of pretrained model")
     parser.add_argument("--ckpt_path", default="./save_ckpt/", type=str, help="the path of checkpoint")
     parser.add_argument("--train_learning_rate", default=0.001, type=float, help="the learning rate for training")
     parser.add_argument("--tune_learning_rate", default=1e-5, type=float, help="the learning rate for tuning")
@@ -51,6 +52,7 @@ if __name__ == "__main__":
     # training
     trainer = Trainer(img_size=args.img_size,
                       num_classes=len(label2id),
+                      pretrained=args.pretrained,
                       ckpt_path=args.ckpt_path,
                       train_learning_rate=args.train_learning_rate,
                       tune_learning_rate=args.tune_learning_rate,

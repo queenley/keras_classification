@@ -9,6 +9,7 @@ class Trainer:
     def __init__(self,
                  img_size,
                  num_classes,
+                 pretrained,
                  ckpt_path,
                  train_learning_rate,
                  tune_learning_rate,
@@ -20,6 +21,7 @@ class Trainer:
                  validation_steps):
         self.img_size = img_size
         self.num_classes = num_classes
+        self.pretrained = pretrained
         self.ckpt_path = ckpt_path
         self.train_learning_rate = train_learning_rate
         self.tune_learning_rate = tune_learning_rate
@@ -38,8 +40,8 @@ class Trainer:
                         keras.metrics.Precision(name="precision"),
                         keras.metrics.Recall(name="recall"),
                         ]
-        self.early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_categorical_accuracy',
-                                                               patience=2)
+        # self.early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_categorical_accuracy',
+                                                               # patience=2)
 
         self.model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
             filepath=self.ckpt_path,
@@ -56,6 +58,12 @@ class Trainer:
         self.model.summary()
         keras.utils.plot_model(self.model, show_shapes=True)
         self._train_model(self.train_learning_rate, self.train_epochs)
+
+        if self.pretrained:
+            try:
+                self.model.load_weights(self.pretrained)
+            except:
+                self.model = keras.models.load_model(self.pretrained)
 
         print("\n Tuning" + "." * 10)
         self.model.trainable = True
@@ -93,7 +101,7 @@ class Trainer:
         self.history = self.model.fit(self.train_generator,
                                       validation_data=self.test_generator,
                                       epochs=num_epochs,
-                                      callbacks=[self.early_callback, self.model_checkpoint_callback],
+                                      callbacks=[self.model_checkpoint_callback],
                                       steps_per_epoch=self.steps_per_epoch,
                                       validation_steps=self.validation_steps,
                                       )
