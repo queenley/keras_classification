@@ -42,7 +42,7 @@ class Trainer:
                         keras.metrics.Recall(name="recall"),
                         ]
         # self.early_callback = tf.keras.callbacks.EarlyStopping(monitor='val_categorical_accuracy',
-                                                               # patience=2)
+        # patience=2)
 
         self.model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
             filepath=self.ckpt_path,
@@ -57,12 +57,12 @@ class Trainer:
     def __call__(self, *args, **kwargs):
         self._build_model()
         self.model.summary()
-        #keras.utils.plot_model(self.model, show_shapes=True)
+        # keras.utils.plot_model(self.model, show_shapes=True)
         if self.pretrained is None:
-		self._train_model(self.train_learning_rate, self.train_epochs)
+            self._train_model(self.train_learning_rate, self.train_epochs)
 
-        if self.pretrained is not None: 
-	    print(f"\n Loading pretrained model from {self.pretrained}" + "." * 10)
+        if self.pretrained is not None:
+            print(f"\n Loading pretrained model from {self.pretrained}" + "." * 10)
             try:
                 self.model.load_weights(self.pretrained)
             except:
@@ -115,7 +115,6 @@ class Trainer:
         :return: the tuple of loss and accuracy
         """
         self.model.evaluate(self.test_generator, steps=self.validation_steps)
-      
 
     def _save_ckpt(self) -> None:
         """
