@@ -70,8 +70,6 @@ if __name__ == "__main__":
     # evaluate
     print("\n Evaluating" + "." * 10)
     trainer.evaluate()
-    print("\n Test loss: ", test_loss)
-    print("\n Test accuracy: ", test_acc)
 
     # predict
     list_pred_img = []
